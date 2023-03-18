@@ -28,8 +28,7 @@ contract AttestationStation is Semver {
     /**
      * @notice Maps addresses to attestations. Creator => About => Key => Value.
      */
-    mapping(address => mapping(address => mapping(bytes32 => bytes)))
-        public attestations;
+    mapping(address => mapping(address => mapping(bytes32 => bytes))) public attestations;
 
     /**
      * @notice Emitted when Attestation is created.
@@ -39,12 +38,7 @@ contract AttestationStation is Semver {
      * @param key     Key of the attestation.
      * @param val     Value of the attestation.
      */
-    event AttestationCreated(
-        address indexed creator,
-        address indexed about,
-        bytes32 indexed key,
-        bytes val
-    );
+    event AttestationCreated(address indexed creator, address indexed about, bytes32 indexed key, bytes val);
 
     /**
      * @custom:semver 1.1.0
@@ -58,11 +52,7 @@ contract AttestationStation is Semver {
      * @param _key   A key used to namespace the attestation.
      * @param _val   An arbitrary value stored as part of the attestation.
      */
-    function attest(
-        address _about,
-        bytes32 _key,
-        bytes memory _val
-    ) public {
+    function attest(address _about, bytes32 _key, bytes memory _val) public {
         attestations[msg.sender][_about][_key] = _val;
 
         emit AttestationCreated(msg.sender, _about, _key, _val);
@@ -75,7 +65,7 @@ contract AttestationStation is Semver {
      */
     function attest(AttestationData[] calldata _attestations) external {
         uint256 length = _attestations.length;
-        for (uint256 i = 0; i < length; ) {
+        for (uint256 i = 0; i < length;) {
             AttestationData memory attestation = _attestations[i];
 
             attest(attestation.about, attestation.key, attestation.val);
