@@ -23,6 +23,7 @@ contract GlobalPassportNFTTest is Test {
             );
         AttestationStation.AttestationData memory attestationData =
             AttestationStation.AttestationData({about: bob, key: bytes32("test-key:string"), val: bytes("test-value")});
+
         // make attestation
         vm.startPrank(alice);
         attestationDataArr[0] = attestationData;

@@ -3,7 +3,6 @@ pragma solidity 0.8.15;
 
 import {ERC721} from "@solmate/tokens/ERC721.sol";
 import {AttestationStation} from "./AttestationStation.sol";
-import {AttestationStationSchema} from "./AttestationStationSchema.sol";
 
 /**
  * @title GlobalPassortNft ERC-721 Contract
@@ -11,7 +10,7 @@ import {AttestationStationSchema} from "./AttestationStationSchema.sol";
  * @notice A GlobalNFT is an NFT minted to anyone reccords attestations made to the nft holder.
  * @dev ""
  */
-contract GlobalPassportNFT is ERC721, AttestationStationSchema {
+contract GlobalPassportNFT is ERC721 {
     event TokenAttestationCreated(address indexed creator, uint256 indexed id, bytes32 indexed key, bytes val);
 
     /// @notice Optimism's AttestationStation contract
@@ -44,7 +43,8 @@ contract GlobalPassportNFT is ERC721, AttestationStationSchema {
 
     /// @notice Creates a new attestation
     /// @param attestationData An array of attestation data
-    function createAttestation(AttestationStation.AttestationData[] memory attestationData, uint256 id) external {
+    /// @param id TokenId for which attestation is created
+    function createAttestation(AttestationStation.AttestationData[] calldata attestationData, uint256 id) external {
         require(_ownerOf[id] != address(0), "NOT_MINTED");
         uint256 attestationDataLength = attestationData.length;
 
