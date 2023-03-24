@@ -2,6 +2,13 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useAccount } from "wagmi";
 
 import { Attestooooooor } from "./components";
+import {
+  auth,
+  createAttRecord,
+  createNFTRecord,
+  db,
+  getPublicKey,
+} from "./polybase";
 
 export function App() {
   /**
@@ -9,6 +16,30 @@ export function App() {
    * @see https://wagmi.sh/docs/hooks/useAccount
    */
   const { isConnected } = useAccount();
+
+  const signIn = async () => {
+    console.log("sign In");
+    const res = await auth.signIn();
+
+    console.log("auth state", res);
+
+    // get public
+    let publicKey = res?.publicKey;
+
+    if (!publicKey) {
+      publicKey = await getPublicKey();
+    }
+
+    db.signer(async (data: string) => {
+      return {
+        h: "eth-personal-sign",
+        sig: await auth.ethPersonalSign(data),
+      };
+    });
+
+    // createAttRecord();
+    // createNFTRecord();
+  };
 
   return (
     <>
@@ -22,6 +53,9 @@ export function App() {
           <hr />
           <Attestooooooor />
           <hr />
+
+          <button onClick={signIn}>Polybase signIn</button>
+          <button onClick={createNFTRecord}>Create nft record</button>
         </>
       )}
     </>

@@ -11,6 +11,9 @@ import {AttestationStation} from "./AttestationStation.sol";
  * @dev ""
  */
 contract GlobalPassportNFT is ERC721 {
+    // ---------------------------------------------------------------------------
+    // Events
+    // ---------------------------------------------------------------------------
     event TokenAttestationCreated(address indexed creator, uint256 indexed id, bytes32 indexed key, bytes val);
 
     /// @notice Optimism's AttestationStation contract
@@ -18,6 +21,10 @@ contract GlobalPassportNFT is ERC721 {
 
     /// @notice Token id
     uint256 tokenId;
+
+    // ---------------------------------------------------------------------------
+    // ERC721 Storage
+    // ---------------------------------------------------------------------------
 
     /// @notice Maps addresses that have minted a token
     mapping(address => bool) public mintedAddress;

@@ -1,10 +1,6 @@
 import { useState } from "react";
 import { useAccount, useNetwork, useWaitForTransaction } from "wagmi";
-import {
-  parseString,
-  stringifyAttestationBytes,
-  encodeRawKey,
-} from "@eth-optimism/atst";
+import { parseString, createKey, createValue } from "@eth-optimism/atst";
 
 /**
  * These react hooks are generated with the wagmi cli via `wagmi generate`
@@ -33,12 +29,12 @@ export function Attestooooooor() {
    * The key of the attestation
    * @see https://www.npmjs.com/package/@eth-optimism/atst
    */
-  const key = encodeRawKey("hello-world");
+  const key = createKey("hello-world");
   /**
    * Value of the attestation
    * @see https://www.npmjs.com/package/@eth-optimism/atst
    */
-  const newAttestation = stringifyAttestationBytes(value);
+  const newAttestation = createValue(value);
 
   /**
    * Automatically generated hook to prepare the transaction
