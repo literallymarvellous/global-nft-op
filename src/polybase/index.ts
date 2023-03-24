@@ -11,26 +11,17 @@ export const attestationCollection = db.collection("Attestation");
 export const metadataCollection = db.collection("GlobalNFTMetadata");
 
 export const createAttRecord = async () => {
-  const attestation = await attestationCollection.create([
+  await attestationCollection.create([
     "1",
     "test",
     "true",
     "0x46484hhi9dhs",
     "0x4s5e7f6a",
   ]);
-  const metadata = await metadataCollection.create([
-    "1",
-    "first",
-    "http:exmaple.com",
-    attestationCollection.record("1"),
-  ]);
-
-  console.log(metadata);
-  return metadata;
 };
 
 export const createNFTRecord = async () => {
-  const metadata = await metadataCollection.create([
+  await metadataCollection.create([
     "1",
     "Global NFT 1",
     "http:exmaple.com/image/1",
@@ -43,6 +34,16 @@ export const createNFTRecord = async () => {
   //     sig: await auth.ethPersonalSign(data),
   //   };
   // });
+};
+
+export const setNFTAttribute = async () => {
+  const atst = attestationCollection.record("1");
+  await metadataCollection.record("1").call("setAttributes", [atst]);
+};
+
+export const readNFT = async () => {
+  const records = metadataCollection.get();
+  console.log("records", records);
 };
 
 export const auth = new Auth();

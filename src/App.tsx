@@ -8,6 +8,8 @@ import {
   createNFTRecord,
   db,
   getPublicKey,
+  readNFT,
+  setNFTAttribute,
 } from "./polybase";
 
 export function App() {
@@ -56,6 +58,8 @@ export function App() {
 
           <button onClick={signIn}>Polybase signIn</button>
           <button onClick={createNFTRecord}>Create nft record</button>
+          <button onClick={setNFTAttribute}>Add metadata</button>
+          <button onClick={readNFT}>read nft collection</button>
         </>
       )}
     </>
